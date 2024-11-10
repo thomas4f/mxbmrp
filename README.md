@@ -26,10 +26,12 @@ Edit `config.yaml` for customizable settings, such as:
 The position of the HUD, text size and text colors can be adjusted from within ReShade.
 
 ## Usage
-    Edit config.yaml according to the comments within the file.
-    Run mxbmrp.exe.
-	Enable the mxbmrp shader within ReShade.
-    Press CTRL + C to exit.
+ - Edit config.yaml according to the comments within the file.
+ - Run mxbmrp.exe.
+ - Enable the mxbmrp shader within ReShade.
+ - Press CTRL + C to exit.
+ 
+*You only need to restart the program if you change its configuration. Restarting MX Bikes alone does not require a program restart.*
 	
 ## Caveats
 This project uses specific memory addresses for reading game data. Due to variations, memory reading may not always be 100% accurate. Some values might be incorrect or unavailable during gameplay.
@@ -37,7 +39,7 @@ This project uses specific memory addresses for reading game data. Due to variat
 The provided memory addresses are configured for MX Bikes beta19. If the game updates or if you use a different version, these addresses may need adjustment, as the data locations could shift with game updates.
 
 ## Running and building the project from source
-Note that this is optional, and that it assumes that you have Python and pip installed.
+Note that **this is optional**, and that it assumes that you have Python and Pip installed.
 
 ### Running
 ```code
