@@ -1,0 +1,159 @@
+// shader_tpl.jinja
+// Based on Layer.fx and DrawText.fxh
+
+#include "ReShade.fxh"
+#include "drawtext.fxh"
+#include "ReShadeUI.fxh"
+
+// Configuration for Text Size
+uniform float TextSize < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Text Size";
+    ui_min = 10.0; 
+    ui_max = 100.0;
+    ui_step = 1.0;
+> = 30.0;
+
+// Configuration for Text Color - Red Component
+uniform float TextColorR < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Text Color (R)";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 255.0);
+> = 1.0;
+
+// Configuration for Text Color - Green Component
+uniform float TextColorG < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Text Color (G)";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 255.0);
+> = 0.7;
+
+// Configuration for Text Color - Blue Component
+uniform float TextColorB < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Text Color (B)";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 255.0);
+> = 0.0;
+
+// Configuration for Text Opacity (Alpha)
+uniform float TextColorA < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Text Opacity (A)";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 255.0);
+> = 1.0;
+
+// Configuration for Text Position
+// Centered horizontally and attached to the top of the screen
+uniform float2 TextPosition < __UNIFORM_DRAG_FLOAT2
+    ui_label = "Text Position";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 200.0);
+> = float2(0.645, 0.0);
+
+// Configuration for Line Spacing
+uniform float LineSpacing < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Line Spacing";
+    ui_min = 0.5; 
+    ui_max = 3.0;
+    ui_step = 0.1;
+> = 1.0;
+
+// Layer Settings
+#ifndef LAYER_SOURCE
+#define LAYER_SOURCE {{ layer_src }}
+#endif
+
+#ifndef LAYER_SIZE_X
+// Set layer width
+#define LAYER_SIZE_X 700
+#endif
+
+#ifndef LAYER_SIZE_Y
+// Set layer height
+#define LAYER_SIZE_Y 120
+#endif
+
+#if LAYER_SINGLECHANNEL
+    #define TEXFORMAT R8
+#else
+    #define TEXFORMAT RGBA8
+#endif
+
+// Configuration for Layer Position and Scaling
+// Centered horizontally and attached to the top of the screen
+uniform float2 LayerPosition < __UNIFORM_DRAG_FLOAT2
+    ui_label = "Layer Position";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 200.0);
+> = float2(0.8, 0.0);
+
+uniform float LayerScale < __UNIFORM_DRAG_FLOAT1
+    ui_label = "Layer Scale";
+    ui_min = (1.0 / 100.0); 
+    ui_max = 4.0;
+    ui_step = (1.0 / 250.0);
+> = 1.0;
+
+// Configuration for Layer Blending
+uniform float LayerBlend < __UNIFORM_COLOR_FLOAT1
+    ui_label = "Layer Blend";
+    ui_tooltip = "Blend ratio of the layer with the original image.";
+    ui_min = 0.0; 
+    ui_max = 1.0;
+    ui_step = (1.0 / 255.0);
+> = 0.75;
+
+// Definition of Layer Texture and Sampler
+texture LayerTexture <
+    source = LAYER_SOURCE;
+> {
+    Format = TEXFORMAT;
+    Width = LAYER_SIZE_X;
+    Height = LAYER_SIZE_Y;
+};
+
+sampler LayerSampler {
+    Texture = LayerTexture;
+    AddressU = BORDER;
+    AddressV = BORDER;
+};
+
+// Fragment Shader for Rendering Multi-Line Text
+float4 RenderText(float2 texCoord : TEXCOORD0) : COLOR {
+    float alpha = 0.0;
+    float2 basePos = TextPosition * BUFFER_SCREEN_SIZE.xy;
+    float lineOffset = TextSize * LineSpacing;  // Adjust vertical spacing
+
+    // Initialize current Y position for text rendering
+    float currentY = basePos.y;
+
+    // Render each line of text
+    // generated_code
+    {{ generated_code }}
+
+    return float4(TextColorR, TextColorG, TextColorB, alpha * TextColorA);
+}
+
+// Pixel Shader for Blending Text and Layer with the Background
+void PS_Combined(float4 pos : SV_Position, float2 texCoord : TEXCOORD, out float4 outColor : SV_Target) {
+    float4 backgroundColor = tex2D(ReShade::BackBuffer, texCoord);
+    float4 textOutput = RenderText(texCoord);
+    float2 pixelSize = 1.0 / (float2(LAYER_SIZE_X, LAYER_SIZE_Y) * LayerScale / BUFFER_SCREEN_SIZE);
+    float4 layerColor = tex2D(LayerSampler, texCoord * pixelSize + LayerPosition * (1.0 - pixelSize));
+    float4 blendedLayer = lerp(backgroundColor, layerColor, layerColor.a * LayerBlend);
+    outColor = lerp(blendedLayer, textOutput, textOutput.a);
+    outColor.a = backgroundColor.a;
+}
+
+// Technique for Rendering the Final Combined Output
+technique mxbmrp {
+    pass {
+        VertexShader = PostProcessVS;
+        PixelShader = PS_Combined;
+    }
+}
