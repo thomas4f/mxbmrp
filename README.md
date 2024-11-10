@@ -13,10 +13,10 @@ A memory reader project that retrieves and displays game data from MX Bikes. The
  - [ReShade](https://reshade.me/) configured for MX Bikes, with Add-on support installed and with the AutoReload add-on enabled.
 
 ## Installation
-Download the latest release from the releases tab, and decompress the archive to your desktop (or anywhere you like).
+Download the latest .zip from [releases](https://github.com/thomas4f/mxbmrp/releases), and decompress the archive to your desktop (or anywhere you like).
 
 ## Configuration
-Edit config.yaml for customizable settings:
+Edit `config.yaml` for customizable settings, such as:
 
  - Text Display: Customize the text format with {Bike}, {Track}, {Server}, and {Password} placeholders.
  - Shader Path: Path to save the shader file (ensure it points to the ReShade shader directory).
@@ -26,8 +26,8 @@ Edit config.yaml for customizable settings:
 The position of the HUD, text size and text colors can be adjusted from within ReShade.
 
 ## Usage
-    Edit config.yaml according to the description above.
-    Run memreader.exe.
+    Edit config.yaml according to the comments within the file.
+    Run mxbmrp.exe.
 	Enable the mxbmrp shader within ReShade.
     Press CTRL + C to exit.
 	
@@ -50,7 +50,7 @@ python src\main.py
 ### Building
 ```code
 pip install pyinstaller
-pyinstaller --onefile src\main.py --name mxbmrp.exe
+pyinstaller --onefile src\main.py --name mxbmrp.exe --distpath=.
 copy dist\mxbmrp.exe .
 ```
 
