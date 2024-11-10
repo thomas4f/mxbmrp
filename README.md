@@ -32,7 +32,11 @@ The position of the HUD, text size and text colors can be adjusted from within R
  - Press CTRL + C to exit.
  
 *You only need to restart the program if you change its configuration. Restarting MX Bikes alone does not require a program restart.*
-	
+
+## Installation help
+A short video on how to set things up:
+<video src="https://github.com/user-attachments/assets/bace9bc2-277e-4054-8b6d-c1d9cca8dcfe" width="1280" height="718"></video>
+
 ## Caveats
 This project uses specific memory addresses for reading game data. Due to variations, memory reading may not always be 100% accurate. Some values might be incorrect or unavailable during gameplay.
 
@@ -53,7 +57,6 @@ python src\main.py
 ```code
 pip install pyinstaller
 pyinstaller --onefile src\main.py --name mxbmrp.exe --distpath=.
-copy dist\mxbmrp.exe .
 ```
 
 ## Final notes
