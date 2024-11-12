@@ -35,7 +35,7 @@ The position of the HUD, text size and text colors can be adjusted from within R
 
 ## Installation help
 A short video on how to set things up:
-<video src="https://github.com/user-attachments/assets/bace9bc2-277e-4054-8b6d-c1d9cca8dcfe" width="1280" height="718"></video>
+<video src="https://github.com/user-attachments/assets/c5a48ddc-b4a3-4ab8-9b60-3f028bb492ff" type="video/mp4" width="1280" height="718" controls>[mxbmrp.mp4](https://github.com/user-attachments/assets/c5a48ddc-b4a3-4ab8-9b60-3f028bb492ff)</video>
 
 ## Caveats
 This project uses specific memory addresses for reading game data. Due to variations, memory reading may not always be 100% accurate. Some values might be incorrect or unavailable during gameplay.
