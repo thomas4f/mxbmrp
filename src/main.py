@@ -1,20 +1,14 @@
 # main.py
 
-import time
-import traceback 
-
-from file_reader import load_config, load_shader_tpl
-from memory_reader import (
-    attach_to_process,
-    close_handle,
-    decode_data,
-    pid_exists,
-    read_mem,
-    search_mem,
-)
-from shader_generator import format_content, gen_shader
-from pathlib import Path
 import sys
+import time
+import traceback
+from pathlib import Path
+
+from memory_reader import (attach_to_process, close_handle, decode_data,
+                           pid_exists, read_mem, search_mem)
+from shader_generator import format_content, gen_shader
+from utils import get_config_path, load_config, load_shader_tpl
 
 
 def main():
@@ -22,7 +16,7 @@ def main():
     print("Press CTRL + C to to exit\n")
 
     # Read files
-    config = load_config("config.yaml")
+    config = load_config(get_config_path())
     shader_src_path = load_shader_tpl(config["shader_src_path"])
 
     # Initialize config variables
@@ -61,7 +55,9 @@ def main():
             # Attach to the target process
             if proc_pid is None or not pid_exists(proc_pid) or proc_handle is None:
                 try:
-                    proc_pid,base_addr, proc_handle = attach_to_process(proc_name, update_interval, verbose)
+                    proc_pid, base_addr, proc_handle = attach_to_process(
+                        proc_name, update_interval, verbose
+                    )
                 except Exception:
                     if proc_handle is not None:
                         close_handle(proc_pid, proc_handle, verbose)
@@ -80,7 +76,9 @@ def main():
                 addr_loc = base_addr + addr_offset
 
                 # Search data
-                raw_data = read_mem(proc_pid, proc_handle, addr_name, addr_loc, data_size, verbose)
+                raw_data = read_mem(
+                    proc_pid, proc_handle, addr_name, addr_loc, data_size, verbose
+                )
 
                 # Decode data
                 if raw_data is not None:
@@ -97,9 +95,11 @@ def main():
                     search_str += raw_data
 
             # Connected to server - search memory for name by ip:port
-            if mem_info["server_ip"] and mem_info["server_ip"] != '0.0.0.0':
-                addr_loc = search_mem(proc_pid, proc_handle, "server_name", search_str, verbose)
-                
+            if mem_info["server_ip"] and mem_info["server_ip"] != "0.0.0.0":
+                addr_loc = search_mem(
+                    proc_pid, proc_handle, "server_name", search_str, verbose
+                )
+
                 raw_data = read_mem(
                     proc_pid,
                     proc_handle,
@@ -131,7 +131,11 @@ def main():
 
                 # Generate shader
                 gen_shader(
-                    shader_src_path, shader_dest_path, formatted_content, layer_src_path, verbose
+                    shader_src_path,
+                    shader_dest_path,
+                    formatted_content,
+                    layer_src_path,
+                    verbose,
                 )
                 last_content = formatted_content
                 print("Shader updated")
@@ -163,5 +167,5 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"An error occurred: {e}")
         traceback.print_exc()
-        if hasattr(sys, '_MEIPASS'):
+        if hasattr(sys, "_MEIPASS"):
             input("Press Enter to exit...")

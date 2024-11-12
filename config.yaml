@@ -10,7 +10,7 @@ content_tpl: |
 
 # Absolute path to the destination where the generated shader will be saved.
 # Ensure this is pointing to the correct directory for ReShade shaders.
-shader_dest_path: 'D:\SteamLibrary\steamapps\common\MX Bikes\reshade-shaders\Shaders\mxbmrp.fx'
+shader_dest_path: 'C:\Program Files (x86)\Steam\steamapps\common\MX Bikes\reshade-shaders\Shaders\mxbmrp.fx'
 
 # Absolute path to the background image used for the visual layer in the shader.
 # This is typically the same directory as the script itself.
@@ -28,7 +28,7 @@ verbose: False
 # The name of the process the script will attach to. In this case, it's the executable file for MX Bikes, mxbikes.exe.
 proc_name: mxbikes.exe
 
-# This is a Jinja2 template that provides the structure for how the shader will be built.
+# Relative path to the Jinja2 template that provides the structure for how the shader will be built.
 shader_src_path: shader_tpl.jinja
 
 # The memory addresses where game data is located.
@@ -57,7 +57,7 @@ mem_addrs:
     data_size: 32
 
 # Search parameters for finding the server name in memory.
-# If you find reliable way to find out without having to search, let me know!
+# If you find reliable way to find this data without having to search, let me know!
 server_name:
   offset: 25
   data_size: 64

@@ -5,23 +5,23 @@
 
 Your typical Discord voicechat:
 
-> **NitroJack**: What Track is that?
+> **NitroJack**: What track is that?
 >
-> **DirtMcGirt**: Dishwashougal, or smth
+> **DirtMcGirt**: Dishwashougal, smth or other
 >
 > **XXPastranaXX**: It's Washou ...
 >
-> **NitroJack**: IS IT ON MODS?
+> **NitroJack**: IS IT ON MODS!?
 >
 > **XXPastranaXX**: It's Washougal
 >
 > **BrrapBrody**: Huh? *MXB Disc*? What's the password?
 >
-> NitroJack: Dishwasher 2022? Spelled with an e or no?
+> **NitroJack**: Dishwasher 2022? Spelled with an e or no?
 
 Enough of that!
 
-Enter MXBMRP, that reads specific memory addresses in [MX Bikes](https://mx-bikes.com/) to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
+Enter MXBMRP, a project that reads specific memory addresses in [MX Bikes](https://mx-bikes.com/) to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
 
 ## Features
  - Real-Time Data: Reads game memory data such as bike, track, and server information.
@@ -47,7 +47,7 @@ The position of the HUD, text size and text colors can be adjusted from within R
 ## Usage
  - Edit config.yaml according to the comments within the file.
  - Run mxbmrp.exe.
- - Enable the mxbmrp shader within ReShade.
+ - Ensure that the mxbmrp shader is enabled in ReShade.
  - Press CTRL + C to exit.
  
 *You only need to restart the program if you change its configuration. Restarting MX Bikes alone does not require a program restart.*
@@ -86,4 +86,3 @@ I created this project primarily out of an interest in exploring memory reading 
 It’s worth noting that this is hacky and not very elegant. If MaxHUD or similar tools implement equivalent functionality, they may provide a more seamless, stable, and fully integrated solution.
 
 Turns out 🥑🥕🥦🥬 are very useful for testing, thanks!
-

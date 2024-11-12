@@ -68,15 +68,14 @@ def read_mem(proc_pid, proc_handle, addr_name, addr_loc, num_bytes, verbose):
         num_bytes,
         ctypes.byref(bytes_read),
     ):
-        raw_data = buffer.raw[:bytes_read.value]
-        
+        raw_data = buffer.raw[: bytes_read.value]
+
         # Conditionally truncate at the first null byte, except for 'server_ip'
         if addr_name != "server_ip":
-            null_index = raw_data.find(b'\x00')
+            null_index = raw_data.find(b"\x00")
             if null_index != -1:
                 raw_data = raw_data[:null_index]
-        
-        
+
         if verbose:
             print(f"Raw value: {raw_data}")
         return raw_data

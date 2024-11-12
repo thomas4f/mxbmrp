@@ -131,12 +131,14 @@ def format_content(content_tpl, mem_info, max_len, verbose):
     return formatted_content
 
 
-def gen_shader(shader_src_path, shader_dest_path, formatted_content, layer_src_path, verbose):
+def gen_shader(
+    shader_src_path, shader_dest_path, formatted_content, layer_src_path, verbose
+):
     # Generate final shader
     if verbose:
         print("Generating shader")
     shader_code = []
-    
+
     # Path in shader must use forward slashes
     posix_layer_src_path = Path(layer_src_path).as_posix()
 
@@ -152,8 +154,12 @@ def gen_shader(shader_src_path, shader_dest_path, formatted_content, layer_src_p
             f"    DrawText_String(float2(basePos.x, currentY), TextSize, 1, texCoord, textContent{idx}, {array_size}, alpha);"
         )
         shader_code.append("    currentY += lineOffset;")
-    final_shader = shader_src_path.replace("{{ generated_code }}", "\n".join(shader_code))
-    final_shader = final_shader.replace("{{ layer_src_path }}", f'"{posix_layer_src_path}"')
+    final_shader = shader_src_path.replace(
+        "{{ generated_code }}", "\n".join(shader_code)
+    )
+    final_shader = final_shader.replace(
+        "{{ layer_src_path }}", f'"{posix_layer_src_path}"'
+    )
 
     # Write shader to disk
     if verbose:
