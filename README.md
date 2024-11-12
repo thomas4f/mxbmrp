@@ -3,7 +3,25 @@
 ![mxbmrp](https://github.com/user-attachments/assets/09dd7100-9938-471a-8c98-09d32ea1aad9)
 *MXBMRP displaying the Bike- Track and Server names on screen in MX Bikes Beta19b.*
 
-The program reads specific memory addresses in MX Bikes to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
+Your typical Discord voicechat:
+
+> **NitroJack**: What Track is that?
+>
+> **DirtMcGirt**: Dishwashougal, or smth
+>
+> **XXPastranaXX**: It's Washou ...
+>
+> **NitroJack**: IS IT ON MODS?
+>
+> **XXPastranaXX**: It's Washougal
+>
+> **BrrapBrody**: Huh? *MXB Disc*? What's the password?
+>
+> NitroJack: Dishwasher 2022? 
+
+Enough of that!
+
+Enter MXBMRP, that reads specific memory addresses in [MX Bikes](https://mx-bikes.com/) to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
 
 ## Features
  - Real-Time Data: Reads game memory data such as bike, track, and server information.
@@ -59,7 +77,7 @@ python src\main.py
 ### Building
 ```code
 pip install pyinstaller
-pyinstaller --onefile src\main.py --name mxbmrp.exe --distpath=.
+pyinstaller --onefile src\main.py --name mxbmrp.exe --distpath=. --workpath=build --specpath=build
 ```
 
 ## Final notes
