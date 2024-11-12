@@ -1,6 +1,7 @@
 # main.py
 
 import time
+import traceback 
 
 from file_reader import load_config, load_shader_tpl
 from memory_reader import (
@@ -96,7 +97,7 @@ def main():
                     search_str += raw_data
 
             # Connected to server - search memory for name by ip:port
-            if mem_info["server_ip"]:
+            if mem_info["server_ip"] and mem_info["server_ip"] != '0.0.0.0':
                 addr_loc = search_mem(proc_pid, proc_handle, "server_name", search_str, verbose)
                 
                 raw_data = read_mem(
@@ -161,5 +162,6 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(f"An error occurred: {e}")
+        traceback.print_exc()
         if hasattr(sys, '_MEIPASS'):
             input("Press Enter to exit...")
