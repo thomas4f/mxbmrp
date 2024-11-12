@@ -8,13 +8,13 @@ content_tpl: |
   Server:   {Server}
   Password: {Password}
 
-# Absolute path to the destination where the generated shader will be saved. Ensure this is pointing to the correct directory for ReShade shaders.
-# Important: Use forward slashes (/) instead of backward slashes (\) in the path.
-shader_path: "D:/SteamLibrary/steamapps/common/MX Bikes/reshade-shaders/Shaders/mxbmrp.fx"
+# Absolute path to the destination where the generated shader will be saved.
+# Ensure this is pointing to the correct directory for ReShade shaders.
+shader_dest_path: 'D:\SteamLibrary\steamapps\common\MX Bikes\reshade-shaders\Shaders\mxbmrp.fx'
 
-# Absoluete path to the background image used for the visual layer in the shader.
-# Important: Use forward slashes (/) instead of backward slashes (\) in the path.
-layer_src: "C:/Users/Thomas/Desktop/mxbmrp/layer.png"
+# Absolute path to the background image used for the visual layer in the shader.
+# This is typically the same directory as the script itself.
+layer_src_path: 'C:\Users\Thomas\Desktop\mxbmrp\layer.png'
 
 # Defines the maximum number of characters allowed for each line in the shader output.
 max_len: 32
@@ -23,39 +23,41 @@ max_len: 32
 update_interval: 10
 
 # Set to True for detailed console output, useful for debugging.
-verbose: True
+verbose: False
 
 # The name of the process the script will attach to. In this case, it's the executable file for MX Bikes, mxbikes.exe.
 proc_name: mxbikes.exe
 
 # This is a Jinja2 template that provides the structure for how the shader will be built.
-shader_tpl: shader_tpl.jinja
+shader_src_path: shader_tpl.jinja
 
-# The memory addresses where game data is located. These addresses are pre-configured for MX Bikes beta19
+# The memory addresses where game data is located.
+# These addresses are pre-configured for MX Bikes beta19b (released november 2024).
 mem_addrs:
   local_server_name:
-    addr_offset: 0x9C6A28
+    addr_offset: 0x9CA748
     data_size: 64
   local_server_password:
-    addr_offset: 0x9C6A6C
+    addr_offset: 0x9CA78C
     data_size: 32
   bike_name:
-    addr_offset: 0x57BB48
+    addr_offset: 0x57F788
     data_size: 32
   track_name:
-    addr_offset: 0x4F3FD8
+    addr_offset: 0x4F7A98
     data_size: 64
   server_ip:
-    addr_offset: 0x57B800
+    addr_offset: 0x57F2D4
     data_size: 4
   server_port:
-    addr_offset: 0x57B7EE
+    addr_offset: 0x57F2C2
     data_size: 2
   server_password:
-    addr_offset: 0x9AE0F4
+    addr_offset: 0x9B1E04
     data_size: 32
 
 # Search parameters for finding the server name in memory.
+# If you find reliable way to find out without having to search, let me know!
 server_name:
   offset: 25
   data_size: 64

@@ -28,11 +28,11 @@ def get_pid(proc_name, verbose):
     return None
 
 
-def get_base_addr(proc_pid, module_name, verbose):
+def get_base_addr(proc_pid, proc_name, verbose):
     # Obtain the base memory address of the specified module within the given process.
     proc = psutil.Process(proc_pid)
     for memory_map in proc.memory_maps(grouped=False):
-        if memory_map.path.lower().endswith(module_name.lower()):
+        if memory_map.path.lower().endswith(proc_name.lower()):
             addr_start = memory_map.addr.split("-")[0]
             base_addr = int(addr_start, 16)
             if verbose:

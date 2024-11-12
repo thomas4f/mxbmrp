@@ -12,21 +12,22 @@ from memory_reader import (
     search_mem,
 )
 from shader_generator import format_content, gen_shader
+from pathlib import Path
 import sys
 
 
 def main():
-    print("Starting memory_reader_project for MX Bikes beta19")
+    print("Starting memory_reader_project for MX Bikes beta19b")
     print("Press CTRL + C to to exit\n")
 
     # Read files
     config = load_config("config.yaml")
-    shader_tpl = load_shader_tpl(config["shader_tpl"])
+    shader_src_path = load_shader_tpl(config["shader_src_path"])
 
     # Initialize config variables
     content_tpl = config["content_tpl"]
-    shader_path = config["shader_path"]
-    layer_src = config["layer_src"]
+    shader_dest_path = Path(config["shader_dest_path"]).resolve()
+    layer_src_path = Path(config["layer_src_path"]).resolve()
     max_len = config["max_len"]
     update_interval = config["update_interval"]
     verbose = config["verbose"]
@@ -129,7 +130,7 @@ def main():
 
                 # Generate shader
                 gen_shader(
-                    shader_tpl, shader_path, formatted_content, layer_src, verbose
+                    shader_src_path, shader_dest_path, formatted_content, layer_src_path, verbose
                 )
                 last_content = formatted_content
                 print("Shader updated")

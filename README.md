@@ -1,8 +1,8 @@
-# MXB Memory Reader Project (MXBMRP)
+# MX Bikes Memory Reader Project (MXBMRP)
 
 ![mxbmrp](https://github.com/user-attachments/assets/09dd7100-9938-471a-8c98-09d32ea1aad9)
 
-A memory reader project that retrieves and displays game data from MX Bikes. The program reads memory data, and creates a ReShade shader that displays the info (similar to [MaxHUD](https://mxb-mods.com/maxhud/)).
+The program reads specific memory addresses in MX Bikes to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
 
 ## Features
  - Real-Time Data: Reads game memory data such as bike, track, and server information.
@@ -40,16 +40,16 @@ A short video on how to set things up:
 ## Caveats
 This project uses specific memory addresses for reading game data. Due to variations, memory reading may not always be 100% accurate. Some values might be incorrect or unavailable during gameplay.
 
-The provided memory addresses are configured for MX Bikes beta19. If the game updates or if you use a different version, these addresses may need adjustment, as the data locations could shift with game updates.
+The provided memory addresses are configured for MX Bikes beta19b. If the game updates or if you use a different version, these addresses may need adjustment, as the data locations could shift with game updates.
 
 ## Running and building the project from source
-Note that **this is optional**, and that it assumes that you have Python and Pip installed.
+Note that **this is optional**, and that it assumes that you have Git, Python and Pip installed.
 
 ### Running
 ```code
 git clone https://github.com/thomas4f/mxbmrp
 cd mxbmrp
-pip install psutil pyyaml jinja2
+pip install psutil pyyaml
 python src\main.py
 ```
 
