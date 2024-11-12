@@ -14,7 +14,7 @@ shader_dest_path: 'D:\SteamLibrary\steamapps\common\MX Bikes\reshade-shaders\Sha
 
 # Absolute path to the background image used for the visual layer in the shader.
 # This is typically the same directory as the script itself.
-layer_src_path: 'C:\Users\Thomas\Desktop\mxbmrp-2024-11-12\layer.png'
+layer_src_path: 'C:\Users\Thomas\Desktop\mxbmrp\layer.png'
 
 # Defines the maximum number of characters allowed for each line in the shader output.
 max_len: 32
@@ -23,7 +23,7 @@ max_len: 32
 update_interval: 10
 
 # Set to True for detailed console output, useful for debugging.
-verbose: True
+verbose: False
 
 # The name of the process the script will attach to. In this case, it's the executable file for MX Bikes, mxbikes.exe.
 proc_name: mxbikes.exe
