@@ -17,7 +17,7 @@ Your typical Discord voicechat:
 >
 > **BrrapBrody**: Huh? *MXB Disc*? What's the password?
 >
-> NitroJack: Dishwasher 2022 spelled with an i?
+> NitroJack: Dishwasher 2022? Spelled with an e or no?
 
 Enough of that!
 
