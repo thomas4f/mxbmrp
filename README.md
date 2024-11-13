@@ -3,7 +3,7 @@
 ![mxbmrp](https://github.com/user-attachments/assets/09dd7100-9938-471a-8c98-09d32ea1aad9)
 *MXBMRP displaying the Bike- Track and Server names on screen in MX Bikes Beta19b.*
 
-Your typical Discord voicechat:
+Your typical MX Bikes Discord voicechat:
 
 > **NitroJack**: What track is that?
 >
@@ -12,6 +12,8 @@ Your typical Discord voicechat:
 > **XXPastranaXX**: It's Washou ...
 >
 > **NitroJack**: IS IT ON MODS!?
+>
+> **PicklePumper**: Am I good for 12 hours? I usually play sim ...
 >
 > **XXPastranaXX**: It's Washougal
 >

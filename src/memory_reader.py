@@ -13,10 +13,6 @@ OpenProcess = ctypes.windll.kernel32.OpenProcess
 ReadProcessMemory = ctypes.windll.kernel32.ReadProcessMemory
 CloseHandle = ctypes.windll.kernel32.CloseHandle
 
-# ---------------------
-# Utility Functions
-# ---------------------
-
 
 def get_pid(proc_name, verbose):
     # Retrieve the PID of the specified process by its name.
@@ -70,7 +66,7 @@ def read_mem(proc_pid, proc_handle, addr_name, addr_loc, num_bytes, verbose):
     ):
         raw_data = buffer.raw[: bytes_read.value]
 
-        # Conditionally truncate at the first null byte, except for 'server_ip'
+        # Conditionally truncate at the first null byte, except for 'server_ip'.
         if addr_name != "server_ip":
             null_index = raw_data.find(b"\x00")
             if null_index != -1:
@@ -169,7 +165,7 @@ def search_mem(
 
 
 def decode_data(raw_data, addr_name):
-    # Decode raw memory data based on type
+    # Decode raw memory data based on type.
     if addr_name in [
         "bike_name",
         "local_server_name",
@@ -194,11 +190,6 @@ def close_handle(proc_pid, proc_handle, verbose):
     if proc_handle and verbose:
         print(f"Closing handle {proc_handle} to PID {proc_pid}")
         CloseHandle(proc_handle)
-
-
-# ---------------------
-# Wrapper Functions
-# ---------------------
 
 
 def attach_to_process(proc_name, update_interval, verbose):

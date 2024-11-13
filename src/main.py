@@ -8,18 +8,22 @@ from pathlib import Path
 from memory_reader import (attach_to_process, close_handle, decode_data,
                            pid_exists, read_mem, search_mem)
 from shader_generator import format_content, gen_shader
-from utils import get_config_path, load_config, load_shader_tpl
+from utils import check_config, get_config_path, load_config, load_shader_tpl
 
 
 def main():
     print("Starting memory_reader_project for MX Bikes beta19b")
     print("Press CTRL + C to to exit\n")
 
-    # Read files
+    # Load and check config.
     config = load_config(get_config_path())
-    shader_src_path = load_shader_tpl(config["shader_src_path"])
+    if not check_config(config):
+        if hasattr(sys, "_MEIPASS"):
+            input("Press Enter to exit...")
+        sys.exit(1)
 
-    # Initialize config variables
+    # Initialize config variables.
+    shader_src_path = load_shader_tpl(config["shader_src_path"])
     content_tpl = config["content_tpl"]
     shader_dest_path = Path(config["shader_dest_path"]).resolve()
     layer_src_path = Path(config["layer_src_path"]).resolve()
@@ -31,7 +35,7 @@ def main():
     server_name_offset = config["server_name"]["offset"]
     server_name_data_size = config["server_name"]["data_size"]
 
-    # Initialize other variables
+    # Initialize other variables.
     proc_pid = proc_handle = None
     last_content = None
 
@@ -52,7 +56,7 @@ def main():
             start_time = time.perf_counter()
             search_str = b""
 
-            # Attach to the target process
+            # Attach to the target process.
             if proc_pid is None or not pid_exists(proc_pid) or proc_handle is None:
                 try:
                     proc_pid, base_addr, proc_handle = attach_to_process(
@@ -67,34 +71,34 @@ def main():
             elif verbose:
                 print(f"Already attached to PID {proc_pid} with handle {proc_handle}")
 
-            # Read memory from the target offsets
+            # Read memory from the target offsets.
             for addr_name, addr_info in mem_addrs.items():
                 addr_offset = addr_info["addr_offset"]
                 data_size = addr_info["data_size"]
 
-                # Calculate address
+                # Calculate address.
                 addr_loc = base_addr + addr_offset
 
-                # Search data
+                # Search data.
                 raw_data = read_mem(
                     proc_pid, proc_handle, addr_name, addr_loc, data_size, verbose
                 )
 
-                # Decode data
+                # Decode data.
                 if raw_data is not None:
                     decoded_data = decode_data(raw_data, addr_name)
 
                     if verbose:
                         print(f"{addr_name}: {decoded_data}")
 
-                    # Add data to mem_info
+                    # Add data to mem_info.
                     mem_info[addr_name] = decoded_data
 
-                # Prepare string for mem_search
+                # Prepare string for mem_search.
                 if addr_name in ("server_ip", "server_port") and decoded_data:
                     search_str += raw_data
 
-            # Connected to server - search memory for name by ip:port
+            # Connected to server - search memory for name by ip:port.
             if mem_info["server_ip"] and mem_info["server_ip"] != "0.0.0.0":
                 addr_loc = search_mem(
                     proc_pid, proc_handle, "server_name", search_str, verbose
@@ -118,18 +122,18 @@ def main():
             elif verbose:
                 print("Not connected to server, skipping server_name search")
 
-            # Format content
+            # Format content.
             formatted_content = format_content(content_tpl, mem_info, max_len, verbose)
 
-            # Check for changes
+            # Check for changes.
             if formatted_content != last_content:
-                # Output to console
+                # Output to console.
                 for line in formatted_content.splitlines():
                     if ":" in line:
                         key, val = line.split(":", 1)
                         print(f"{key.strip()}: {val.strip()}")
 
-                # Generate shader
+                # Generate shader.
                 gen_shader(
                     shader_src_path,
                     shader_dest_path,
@@ -143,20 +147,20 @@ def main():
                 if verbose:
                     print("Content unchanged, skipping shader update")
 
-            # Display execution time
+            # Display execution time.
             if verbose:
                 end_time = time.perf_counter()
                 elapsed = end_time - start_time
                 print(f"Execution time: {elapsed:.4f} seconds")
 
-            # Wait for next read
+            # Wait for next read.
             if verbose:
                 print(f"Sleeping for {update_interval} seconds ...\n")
             time.sleep(update_interval)
     except KeyboardInterrupt:
         print("Keyboard interrupt, exiting")
     finally:
-        # Close handle
+        # Close handle.
         if proc_handle is not None:
             close_handle(proc_pid, proc_handle, verbose)
 

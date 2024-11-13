@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+# Replacements for the final shader.
 REPLACEMENTS = {
     " ": "__Space",
     "!": "__Exclam",
@@ -101,13 +102,13 @@ REPLACEMENTS = {
 
 
 def format_content(content_tpl, mem_info, max_len, verbose):
-    # Helper function to truncate strings
+    # Helper function to truncate strings.
     def truncate(text, max_length):
         if not isinstance(text, str):
             text = str(text)
         return text if len(text) <= max_length else text[: max_length - 4] + " ..."
 
-    # Format and output the memory information with truncation
+    # Format and output the memory information with truncation.
     tpl_data = {
         "Bike": truncate(mem_info.get("bike_name") or "None", max_len),
         "Track": truncate(mem_info.get("track_name") or "None", max_len),
@@ -134,15 +135,15 @@ def format_content(content_tpl, mem_info, max_len, verbose):
 def gen_shader(
     shader_src_path, shader_dest_path, formatted_content, layer_src_path, verbose
 ):
-    # Generate final shader
+    # Generate final shader.
     if verbose:
         print("Generating shader")
     shader_code = []
 
-    # Path in shader must use forward slashes
+    # Path in shader must use forward slashes.
     posix_layer_src_path = Path(layer_src_path).as_posix()
 
-    # Generate code
+    # Generate code.
     for idx, line in enumerate(formatted_content.splitlines()):
         replaced = [REPLACEMENTS.get(char, "__Question") for char in line]
         array_size = len(replaced)
@@ -161,8 +162,9 @@ def gen_shader(
         "{{ layer_src_path }}", f'"{posix_layer_src_path}"'
     )
 
-    # Write shader to disk
+    # Write shader to disk.
+    shader_final_path = Path(shader_dest_path) / "mxbmrp.fx"
     if verbose:
-        print(f"Writing shader: {shader_dest_path}")
-    with open(shader_dest_path, "w") as f:
+        print(f"Writing shader: {shader_final_path}")
+    with open(shader_final_path, "w") as f:
         f.write(final_shader)

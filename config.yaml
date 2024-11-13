@@ -10,7 +10,7 @@ content_tpl: |
 
 # Absolute path to the destination where the generated shader will be saved.
 # Ensure this is pointing to the correct directory for ReShade shaders.
-shader_dest_path: 'C:\Program Files (x86)\Steam\steamapps\common\MX Bikes\reshade-shaders\Shaders\mxbmrp.fx'
+shader_dest_path: 'C:\Program Files (x86)\Steam\steamapps\common\MX Bikes\reshade-shaders\Shaders\'
 
 # Absolute path to the background image used for the visual layer in the shader.
 # This is typically the same directory as the script itself.
@@ -57,7 +57,7 @@ mem_addrs:
     data_size: 32
 
 # Search parameters for finding the server name in memory.
-# If you find reliable way to find this data without having to search, let me know!
+# If you find a reliable way to find this data without having to search, let me know!
 server_name:
   offset: 25
   data_size: 64
