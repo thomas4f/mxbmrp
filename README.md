@@ -56,8 +56,8 @@ The position of the HUD, text size and text colors can be adjusted from within R
 
 ## Installation help
 A short video on how to set things up:
-<video src="https://github.com/user-attachments/assets/c5a48ddc-b4a3-4ab8-9b60-3f028bb492ff" type="video/mp4" width="1280" height="718" controls>
-  [mxbmrp.mp4](https://github.com/user-attachments/assets/c5a48ddc-b4a3-4ab8-9b60-3f028bb492ff)
+<video src="https://github.com/user-attachments/assets/99e280e3-6f48-41bf-bdd8-961873d9d2ae" type="video/mp4" width="1280" height="718" controls>
+  [mxbmrp.mp4](https://github.com/user-attachments/assets/99e280e3-6f48-41bf-bdd8-961873d9d2ae)
 </video>
 
 ## Caveats
