@@ -72,7 +72,7 @@ Note that **this is optional**, and that it assumes that you have Git, Python an
 ```code
 git clone https://github.com/thomas4f/mxbmrp
 cd mxbmrp
-pip install psutil pyyaml traceback
+pip install -r requirements.txt
 python src\main.py
 ```
 
