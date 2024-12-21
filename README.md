@@ -3,27 +3,9 @@
 ![mxbmrp](https://github.com/user-attachments/assets/09dd7100-9938-471a-8c98-09d32ea1aad9)
 *MXBMRP displaying the Bike- Track and Server names on screen in MX Bikes Beta19b.*
 
-Your typical MX Bikes Discord voicechat:
+MXBMRP reads specific memory addresses in [MX Bikes](https://mx-bikes.com/) to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
 
-> **NitroJack**: What track is that?
->
-> **DirtMcGirt**: Dishwashougal, smth or other
->
-> **XXPastranaXX**: It's Washou ...
->
-> **NitroJack**: IS IT ON MODS!?
->
-> **PicklePumper**: Am I good for 12 hours? I usually play sim ...
->
-> **XXPastranaXX**: It's Washougal
->
-> **BrrapBrody**: Huh? *MXB Disc*? What's the password?
->
-> **NitroJack**: Dishwasher 2022? Spelled with an e or no?
-
-Enough of that!
-
-Enter MXBMRP, a project that reads specific memory addresses in [MX Bikes](https://mx-bikes.com/) to retrieve real-time game data. It then writes this data to a ReShade shader file, creating an in-game overlay that displays the information live, similar to [MaxHUD](http://forum.mx-bikes.com/index.php?topic=180.0)).
+**Note: This project is discontinued, please see [MXBMRP2](https://github.com/thomas4f/mxbmrp2), a proper MX Bikes Plugin written in C++.**
 
 ## Features
  - Real-Time Data: Reads game memory data such as bike, track, and server information.
